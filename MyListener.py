@@ -27,7 +27,7 @@ def listen_key(key):
 # if the right mouse is clicked, return True
 def listen_mouse(x, y, button, pressed):
     global Start_detection
-    if button == mouse.Button.right:
+    if button == mouse.Button.middle:
         if pressed:
             Start_detection = not Start_detection
             print("Start detection: ", Start_detection)
@@ -69,6 +69,9 @@ def Mouse_redirection(boxes, args):
     boxes_center = (
         np.array(boxes.numpy()[:, :2] + boxes.numpy()[:, 2:]) / 2 / args.resize
     )
+    boxes_center[:, 1] = (
+        boxes.numpy()[:, 1] * 0.9 + boxes.numpy()[:, 3] * 0.1
+    ) / args.resize
     dis = np.linalg.norm(boxes_center - pos, axis=-1)
 
     destination = boxes_center[np.argmin(dis)]
