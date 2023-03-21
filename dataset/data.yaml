@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 1
+names: ['Target']
+
+roboflow:
+  workspace: msoom
+  project: test2-thi54
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/msoom/test2-thi54/dataset/2
