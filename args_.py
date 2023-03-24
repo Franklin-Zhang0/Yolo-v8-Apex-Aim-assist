@@ -10,6 +10,7 @@ def arg_init(args):
     args.add_argument(
         "--model_dir", type=str, default=dirpath + "/model", help="model dir"
     )
+    args.add_argument("--model", type=str, default="/best.pt", help="model path")
     args.add_argument("--resize", type=float, default=1 / 5, help="resize image")
     args.add_argument("--wait", type=float, default=0, help="wait time")
     args.add_argument("--verbos", type=bool, default=True, help="verbos")
