@@ -17,11 +17,8 @@ def listeners(Start_detection, Listen):
 
     mouse_listener = mouse.Listener(on_click=listen_mouse)
     mouse_listener.start()
-    print("Listen Process start, Start listening...")
-    while Listen:
-        Start_detection, Listen = get_S_L()
-        time.sleep(0.2)
-        continue
+    print("listener start")
+    mouse_listener.join()
 
 
 if __name__ == "__main__":
@@ -43,6 +40,7 @@ if __name__ == "__main__":
 
     print("Main start")
     while Listen:
+        Start_detection, Listen = get_S_L()
         if Start_detection:
             # take a screenshot
             take_shots(args)

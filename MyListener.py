@@ -21,17 +21,15 @@ def listen_key(key):
         Listen = False
         Start_detection = False
         print("Stop listening")
-    time.sleep(0.3)
 
 
 # if the right mouse is clicked, return True
 def listen_mouse(x, y, button, pressed):
     global Start_detection
-    if button == mouse.Button.middle:
+    if button == mouse.Button.right:
         if pressed:
             Start_detection = not Start_detection
             print("Start detection: ", Start_detection)
-    time.sleep(0.3)
 
 
 def Move_Mouse(args):
