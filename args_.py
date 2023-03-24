@@ -17,5 +17,6 @@ def arg_init(args):
     args.add_argument("--target_index", type=int, default=0, help="target index")
     args.add_argument("--half", type=bool, default=True, help="use half to predict")
     args.add_argument("--mouse_speed", type=float, default=1, help="mouse speed base")
+    args.add_argument("--show", type=bool, default=True, help="show target")
     args = args.parse_args(args=[])
     return args

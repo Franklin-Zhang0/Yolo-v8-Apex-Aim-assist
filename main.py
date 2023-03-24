@@ -8,6 +8,7 @@ from predict import *
 from args_ import *
 from threading import Thread
 from multiprocessing import Process, Pipe, Value
+from show_target import Show_target
 
 global Start_detection, Listen
 # Start listen the right mouse button and the esc
@@ -50,6 +51,9 @@ if __name__ == "__main__":
             boxes = predict_res.boxes
             boxes = boxes[boxes[:].cls == args.target_index]
             boxes = boxes[:].xyxy
+            if args.show:
+                for box in boxes:
+                    Show_target(box.numpy() / args.resize)
             if boxes.shape[0] > 0:
                 Mouse_redirection(boxes, args)
         else:
