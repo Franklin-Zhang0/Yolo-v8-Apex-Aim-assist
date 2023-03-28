@@ -1,5 +1,6 @@
 from pynput import mouse, keyboard
 import numpy as np
+import pyautogui
 import time
 
 Start_detection = False
@@ -36,24 +37,31 @@ def Move_Mouse(args):
     while Listen:
         if Start_detection:
             global destination
-            mouse_instance = mouse.Controller()
-            pos = np.array(mouse_instance.position)
-            mouse_vector = destination - pos
-            norm = np.linalg.norm(mouse_vector)
-            if norm < 5 or destination[0] < 0:
+            # mouse_instance = mouse.Controller()
+            # pos = np.array(mouse_instance.position)
+            # mouse_vector = destination - pos
+            # norm = np.linalg.norm(mouse_vector)
+            # if norm < 5 or destination[0] < 0:
+            #     destination[0] = -1
+            #     time.sleep(0.005)
+            #     continue
+
+            # # normalize mouse_vector
+            # normalized_vector = mouse_vector * 1.0 / norm
+            # mouse_vector = normalized_vector * norm
+
+            # mouse_instance.position = tuple(
+            #     pos + mouse_vector * args.mouse_speed
+            # )  # +0.1*np.random(2)*(np.linalg.norm(mouse_vector))
+            if destination[0] < 0:
                 destination[0] = -1
                 time.sleep(0.005)
                 continue
-
-            # normalize mouse_vector
-            normalized_vector = mouse_vector * 1.0 / norm
-            mouse_vector = normalized_vector * np.log(norm)
-
-            mouse_instance.position = tuple(
-                pos + mouse_vector * args.mouse_speed
-            )  # +0.1*np.random(2)*(np.linalg.norm(mouse_vector))
-            time.sleep(0.005)
+            pyautogui.moveTo(destination[0], destination[1], duration=args.aim_time)
+            destination[0] = -1
+            # time.sleep(0.005)
         else:
+            time.sleep(0.005)
             continue
 
 
@@ -71,7 +79,12 @@ def Mouse_redirection(boxes, args):
         boxes.numpy()[:, 1] * 0.9 + boxes.numpy()[:, 3] * 0.1
     ) / args.resize
     dis = np.linalg.norm(boxes_center - pos, axis=-1)
-
-    destination = boxes_center[np.argmin(dis)]
+    min_index = np.argmin(dis)
+    width = boxes.numpy()[min_index, 2] - boxes.numpy()[min_index, 0]
+    if dis[min_index] <width/5:
+        destination[0]=-1
+        return
+    else:
+        destination = boxes_center[np.argmin(dis)]
 
     # mouse_instance.position = tuple(boxes_center[np.argmin(dis)])

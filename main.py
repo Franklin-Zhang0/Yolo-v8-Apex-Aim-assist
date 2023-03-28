@@ -12,7 +12,7 @@ from show_target import Show_target
 
 global Start_detection, Listen
 # Start listen the right mouse button and the esc
-def listeners(Start_detection, Listen):
+def listeners():
     # key_listener = keyboard.Listener(on_press=listen_key)
     # key_listener.start()
 
@@ -24,40 +24,41 @@ def listeners(Start_detection, Listen):
 
 if __name__ == "__main__":
     # create a arg set
-    Start_detection = Value("b", False)
-    Listen = Value("b", True)
+    Listen=True
 
     args = argparse.ArgumentParser()
     args = arg_init(args)
 
     process1 = Thread(
         target=listeners,
-        args=(Start_detection, Listen),
+        args=(),
     )
     process1.start()
 
     Mouse_mover = Thread(target=Move_Mouse, args=(args,), name="Mouse_mover")
     Mouse_mover.start()
 
+    predict_init(args)
     print("Main start")
     while Listen:
+        time_start = time.time()
         Start_detection, Listen = get_S_L()
+        # take a screenshot
+        img=take_shots(args)
+        #print("shots time: ", time.time() - time_start)
+        # predict the image
+        predict_res = predict(args,img)
+        #print("shot+predict time: ", time.time() - time_start)
+        time.sleep(args.wait)
+        boxes = predict_res.boxes
+        boxes = boxes[boxes[:].cls == args.target_index]
+        boxes = boxes.cpu()
+        boxes = boxes[:].xyxy
+        
         if Start_detection:
-            # take a screenshot
-            take_shots(args)
-            # predict the image
-            predict_res = predict(args)
-            time.sleep(args.wait)
-            boxes = predict_res.boxes
-            boxes = boxes[boxes[:].cls == args.target_index]
-            boxes = boxes[:].xyxy
-            if args.show:
-                for box in boxes:
-                    Show_target(box.numpy() / args.resize)
             if boxes.shape[0] > 0:
                 Mouse_redirection(boxes, args)
-        else:
-            time.sleep(0.1)
-            continue
+        print("total time: ", time.time() - time_start)
+        
 
     print("main over")
