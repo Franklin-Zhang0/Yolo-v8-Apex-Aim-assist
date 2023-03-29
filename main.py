@@ -38,6 +38,8 @@ if __name__ == "__main__":
     Mouse_mover = Thread(target=Move_Mouse, args=(args,), name="Mouse_mover")
     Mouse_mover.start()
 
+    time_per_frame=0.01
+
     predict_init(args)
     print("Main start")
     while Listen:
@@ -54,11 +56,15 @@ if __name__ == "__main__":
         boxes = boxes[boxes[:].cls == args.target_index]
         boxes = boxes.cpu()
         boxes = boxes[:].xyxy
+        boxes = boxes.numpy()
+        if(boxes.shape[0]==0):
+            boxes=np.array([[-1,-1,-1,-1]])
         
         if Start_detection:
             if boxes.shape[0] > 0:
-                Mouse_redirection(boxes, args)
-        print("total time: ", time.time() - time_start)
+                Mouse_redirection(boxes, args, time_per_frame)
+        #print("total time: ", time.time() - time_start)
+        time_per_frame = time.time() - time_start
         
 
     print("main over")

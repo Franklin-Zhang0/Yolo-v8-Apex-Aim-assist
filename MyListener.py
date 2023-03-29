@@ -6,6 +6,8 @@ import time
 Start_detection = False
 Listen = True
 destination = np.array([-1, -1])
+width = 0
+interval = 0.01
 
 
 def get_S_L():
@@ -32,55 +34,54 @@ def listen_mouse(x, y, button, pressed):
             Start_detection = not Start_detection
             print("Start detection: ", Start_detection)
 
-
+def speed_func(x, speed):
+    if np.abs(x) < speed*3:
+        return min(speed/2, x)
+    else:
+        return speed
 def Move_Mouse(args):
+    global destination, width, interval
     while Listen:
         if Start_detection:
-            global destination
-            # mouse_instance = mouse.Controller()
-            # pos = np.array(mouse_instance.position)
-            # mouse_vector = destination - pos
-            # norm = np.linalg.norm(mouse_vector)
-            # if norm < 5 or destination[0] < 0:
-            #     destination[0] = -1
-            #     time.sleep(0.005)
-            #     continue
-
-            # # normalize mouse_vector
-            # normalized_vector = mouse_vector * 1.0 / norm
-            # mouse_vector = normalized_vector * norm
-
-            # mouse_instance.position = tuple(
-            #     pos + mouse_vector * args.mouse_speed
-            # )  # +0.1*np.random(2)*(np.linalg.norm(mouse_vector))
-            if destination[0] < 0:
+            mouse_instance = mouse.Controller()
+            pos = np.array(mouse_instance.position)
+            mouse_vector = destination - pos
+            norm = np.linalg.norm(mouse_vector)
+            if norm < width/5 or norm >600 or destination[0] < 0:
                 destination[0] = -1
-                time.sleep(0.005)
+                time.sleep(0.001)
                 continue
-            pyautogui.moveTo(destination[0], destination[1], duration=args.aim_time)
-            destination[0] = -1
-            # time.sleep(0.005)
+
+            # normalize mouse_vector
+            normalized_vector = mouse_vector * 1.0 / norm
+            mouse_vector = normalized_vector
+
+            mouse_instance.position = tuple(
+                pos + mouse_vector * speed_func(norm, args.mouse_speed*interval*1000)
+            )
+            time.sleep(interval)
         else:
-            time.sleep(0.005)
+            time.sleep(0.001)
             continue
 
 
 # redirect the mouse closer to the nearest box center
-def Mouse_redirection(boxes, args):
-    global destination
+def Mouse_redirection(boxes, args, tpf):
+    global destination, width, interval
+    interval = tpf
     mouse_instance = mouse.Controller()
     pos = np.array(mouse_instance.position)
 
-    # print(boxes.shape, type(boxes.numpy()))
+    # print(boxes.shape, type(boxes()))
     boxes_center = (
-        np.array(boxes.numpy()[:, :2] + boxes.numpy()[:, 2:]) / 2 / args.resize
+        (boxes[:, :2] + boxes[:, 2:]) / 2 / args.resize
     )
     boxes_center[:, 1] = (
-        boxes.numpy()[:, 1] * 0.9 + boxes.numpy()[:, 3] * 0.1
+        boxes[:, 1] * 0.9 + boxes[:, 3] * 0.1
     ) / args.resize
     dis = np.linalg.norm(boxes_center - pos, axis=-1)
     min_index = np.argmin(dis)
-    width = boxes.numpy()[min_index, 2] - boxes.numpy()[min_index, 0]
+    width = boxes[min_index, 2] - boxes[min_index, 0]
     if dis[min_index] <width/5:
         destination[0]=-1
         return

@@ -22,5 +22,7 @@ def arg_init(args):
                       help="use half to predict")
     args.add_argument("--aim_time", type=float,
                       default=0.05, help="mouse speed base")
+    args.add_argument("--mouse_speed", type=float,
+                        default=10, help="mouse speed")
     args = args.parse_args(args=[])
     return args
