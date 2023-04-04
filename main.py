@@ -46,8 +46,9 @@ if __name__ == "__main__":
         
         Start_detection, Listen = get_S_L()
         # take a screenshot
+        #time_shot=time.time()
         img=take_shots(args)
-        #print("shots time: ", time.time() - time_start)
+        #print("shots time: ", time.time() - time_shot)
         # predict the image
         predict_res = predict(args,img)
         #print("shot+predict time: ", time.time() - time_start)
@@ -69,7 +70,7 @@ if __name__ == "__main__":
             time_start = time.time()
             print("fps: ", count/time_per_100frame)
             interval=time_per_100frame/count
-            print(interval)
+            print("interval: ",interval)
             count=0
         
 

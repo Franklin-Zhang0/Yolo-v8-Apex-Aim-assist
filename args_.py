@@ -22,7 +22,7 @@ def arg_init(args):
                       help="use half to predict")
     # args.add_argument("--mouse_speed", type=float,
     #                     default=5., help="mouse speed(mouse sensitivity in the game)")
-    # args.add_argument("--smooth",type=float,
-    #                   default=2.,help="how smooth the mouse move(from 1. to 5.)")
+    args.add_argument("--smooth",type=int,
+                      default=5.,help="how smooth the mouse move(from 1. to 5.)")
     args = args.parse_args(args=[])
     return args

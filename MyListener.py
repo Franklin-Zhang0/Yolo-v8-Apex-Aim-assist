@@ -51,14 +51,19 @@ def Move_Mouse(args):
         mouse_vector = (destination - pos)*2/3
         norm = np.linalg.norm(mouse_vector)
         #if destination not in region
-        if norm <= 2 or (destination[0]==screen_center[0] and destination[1]==screen_center[1]):
+        if norm <=2 or (destination[0]==screen_center[0] and destination[1]==screen_center[1]):return
+        if norm <= width/2 :
+            win32api.mouse_event(win32con.MOUSEEVENTF_MOVE,int(mouse_vector[0]/2), int(mouse_vector[1]/2))
             return
 
         # normalize mouse_vector
         # normalized_vector = mouse_vector * 1.0 / norm
         # des = normalized_vector * speed_func(norm, args.mouse_speed, args.smooth)
-
-        win32api.mouse_event(win32con.MOUSEEVENTF_MOVE,int(mouse_vector[0]/3), int(mouse_vector[1]/3))
+        des=mouse_vector/args.smooth
+        for i in range(int(args.smooth)):
+            win32api.mouse_event(win32con.MOUSEEVENTF_MOVE,int(des[0]), int(des[1]))
+            time.sleep(0.01/args.smooth)
+        time.sleep(0.040)
 
 
 
@@ -76,7 +81,7 @@ def Mouse_redirection(boxes, args, tpf):
         (boxes[:, :2] + boxes[:, 2:]) / 2
     )
     boxes_center[:, 1] = (
-        boxes[:, 1] * 0.5 + boxes[:, 3] * 0.5
+        boxes[:, 1] * 0.6 + boxes[:, 3] * 0.4
     )
     # Map the box from the image coordinate to the screen coordinate
     screen_center = screen_size / 2
