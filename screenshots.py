@@ -1,14 +1,13 @@
-import pyautogui
-import cv2
-import numpy as np
 import dxcam
-
+import win32api
 camera = dxcam.create()
 def take_shots(args):
-    #path = args.dir + "/screenshots/screenshot.png"
-
-    #img=pyautogui.screenshot()
-    img= camera.grab()
-    
-    #img = cv2.resize(img, (0, 0), fx=args.resize, fy=args.resize)
+    #get the screen size
+    screen_size = win32api.GetSystemMetrics(0), win32api.GetSystemMetrics(1)
+    center=(screen_size[0]/2,screen_size[1]/2)
+    region = (center[0]-screen_size[0]*args.crop_size/2, center[1]-screen_size[1]*args.crop_size/2,
+              center[0]+screen_size[0]*args.crop_size/2, center[1]+screen_size[1]*args.crop_size/2)
+    region = tuple(map(int, region))
+    #print(region)
+    img= camera.grab(region=region)
     return img

@@ -8,9 +8,9 @@ def predict(args,img):
     global model
     if img is None: 
         res = model(
-            args.dir + "/screenshots/screenshot.png", verbose=args.verbos, half=args.half
+            args.dir + "/screenshots/screenshot.png", verbose=args.verbos, half=args.half, iou=0.7
         )
     else:
-        res = model(img, verbose=args.verbos, half=args.half)
+        res = model(img, verbose=args.verbos, half=args.half, iou=0.7)
     #print(res)
     return res[0]
