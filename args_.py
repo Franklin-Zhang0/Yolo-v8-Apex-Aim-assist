@@ -18,11 +18,11 @@ def arg_init(args):
     args.add_argument("--verbos", type=bool, default=False, help="verbos")
     args.add_argument("--target_index", type=int,
                       default=0, help="target index")
-    args.add_argument("--half", type=bool, default=False,
+    args.add_argument("--half", type=bool, default=True,
                       help="use half to predict")
-    args.add_argument("--mouse_speed", type=float,
-                        default=2., help="mouse speed(from 0 to 10, too high may cause difficult it to coordinate)")
-    args.add_argument("--smooth",type=float,
-                      default=2.,help="how smooth the mouse move(from 1. to 5.)")
+    # args.add_argument("--mouse_speed", type=float,
+    #                     default=5., help="mouse speed(mouse sensitivity in the game)")
+    # args.add_argument("--smooth",type=float,
+    #                   default=2.,help="how smooth the mouse move(from 1. to 5.)")
     args = args.parse_args(args=[])
     return args

@@ -36,8 +36,8 @@ if __name__ == "__main__":
     )
     process1.start()
 
-    Mouse_mover = Thread(target=Move_Mouse, args=(args,), name="Mouse_mover")
-    Mouse_mover.start()
+    #Mouse_mover = Thread(target=Move_Mouse, args=(args,), name="Mouse_mover")
+    #Mouse_mover.start()
 
     predict_init(args)
     print("Main start")
@@ -60,6 +60,7 @@ if __name__ == "__main__":
         if Start_detection :
             #print(boxes)
             Mouse_redirection(boxes, args, interval)
+            Move_Mouse(args)
         #print("total time: ", time.time() - time_start)
         count+=1
 
