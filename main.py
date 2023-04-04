@@ -57,11 +57,9 @@ if __name__ == "__main__":
         boxes = boxes.cpu()
         boxes = boxes[:].xyxy
         boxes = boxes.numpy()
-        if boxes.shape[0] == 0:
-            boxes = np.array([[-1, -1, -1, -1]])
         if Start_detection :
-            if boxes.shape[0] > 0:
-                Mouse_redirection(boxes, args, interval)
+            #print(boxes)
+            Mouse_redirection(boxes, args, interval)
         #print("total time: ", time.time() - time_start)
         count+=1
 
