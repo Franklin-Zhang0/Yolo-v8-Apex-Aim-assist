@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     #Mouse_mover = Thread(target=Move_Mouse, args=(args,), name="Mouse_mover")
     #Mouse_mover.start()
-
+    shot_init(args)
     predict_init(args)
     print("Main start")
     time_start = time.time()

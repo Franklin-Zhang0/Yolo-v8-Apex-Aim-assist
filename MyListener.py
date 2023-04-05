@@ -52,7 +52,7 @@ def Move_Mouse(args):
         norm = np.linalg.norm(mouse_vector)
         #if destination not in region
         if norm <=2 or (destination[0]==screen_center[0] and destination[1]==screen_center[1]):return
-        if norm <= width/2 :
+        if norm <= width*2/3 :
             win32api.mouse_event(win32con.MOUSEEVENTF_MOVE,int(mouse_vector[0]/2), int(mouse_vector[1]/2))
             return
 
@@ -63,7 +63,8 @@ def Move_Mouse(args):
         for i in range(int(args.smooth)):
             win32api.mouse_event(win32con.MOUSEEVENTF_MOVE,int(des[0]), int(des[1]))
             time.sleep(0.01/args.smooth)
-        time.sleep(0.040)
+        delay_time=4./float(args.game_fps)
+        time.sleep(delay_time)
 
 
 
