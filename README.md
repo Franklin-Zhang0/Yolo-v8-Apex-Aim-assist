@@ -14,7 +14,7 @@ just run the main.py file with the following command
 
 After a few seconds, the program will start to run. You can see `Main Start` in the console.
 
-Once you click the right mouse button, the program will start to aim at the enemy.
+Once you hold the right mouse button or the left mouse button (no matter you hold to aim or start shooting), the program will start to aim at the enemy.
 
 ## How to change the settings
 You can change the settings in the `args.py` file.
