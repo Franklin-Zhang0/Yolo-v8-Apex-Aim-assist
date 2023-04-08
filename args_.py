@@ -15,19 +15,26 @@ def arg_init(args):
     args.add_argument("--iou",type=float,
                       default=0.8,help="predict iou")
     args.add_argument("--conf",type=float,
-                        default=0.5,help="predict conf")
+                        default=0.6,help="predict conf")
     args.add_argument("--crop_size", type=float,
-                      default=1/2, help="the portion to detect from the screen(=crop_window_height/screen_height)(It's always a rectangle)(from 0 to 1)")
+                      default=1/3, help="the portion to detect from the screen(=crop_window_height/screen_height)(It's always a rectangle)(from 0 to 1)")
     args.add_argument("--wait", type=float, default=0, help="wait time")
     args.add_argument("--verbos", type=bool, default=False, help="predict verbos")
     args.add_argument("--target_index", type=int,
                       default=1, help="target index")
-    args.add_argument("--half", type=bool, default=True,
+    args.add_argument("--half", type=bool, default=False,
                       help="use half to predict")
     # args.add_argument("--mouse_speed", type=float,
     #                     default=5., help="mouse speed(mouse sensitivity in the game)")
     args.add_argument("--smooth",type=int,
                       default=5,help="how smooth the mouse move(from 1. to 5.)")
     args.add_argument("--game_fps", type=int, default=60, help="the fps in the game")
+
+    #PID args
+    args.add_argument("--pid", type=bool, default=True, help="use pid")
+    args.add_argument("--Kp", type=float, default=0.4, help="Kp")
+    args.add_argument("--Ki", type=float, default=0.05, help="Ki")
+    args.add_argument("--Kd", type=float, default=0.25, help="Kd")
+
     args = args.parse_args(args=[])
     return args
