@@ -6,11 +6,6 @@ def predict_init(args):
     model = YOLO(args.model_dir + args.model)
 def predict(args,img):
     global model
-    if img is None: 
-        res = model(
-            args.dir + "/screenshots/screenshot.png", verbose=args.verbos, half=args.half, iou=0.7
-        )
-    else:
-        res = model(img, verbose=args.verbos, half=args.half, iou=0.7)
+    res = model(img, verbose=args.verbos, half=args.half, iou=args.iou, conf=args.conf)
     #print(res)
     return res[0]

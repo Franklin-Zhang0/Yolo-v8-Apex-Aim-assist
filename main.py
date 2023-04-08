@@ -13,13 +13,13 @@ import numpy as np
 global Start_detection, Listen
 # Start listen the right mouse button and the esc
 def listeners():
-    # key_listener = keyboard.Listener(on_press=listen_key)
-    # key_listener.start()
+    key_listener = keyboard.Listener(on_press=listen_key)
+    key_listener.start()
 
     mouse_listener = mouse.Listener(on_click=listen_mouse)
     mouse_listener.start()
     print("listener start")
-    mouse_listener.join()
+    key_listener.join()
 
 count=0
 interval=0.03
@@ -54,10 +54,7 @@ if __name__ == "__main__":
         #print("shot+predict time: ", time.time() - time_start)
         time.sleep(args.wait)
         boxes = predict_res.boxes
-        boxes = boxes[boxes[:].cls == args.target_index]
-        boxes = boxes.cpu()
-        boxes = boxes[:].xyxy
-        boxes = boxes.numpy()
+        boxes = boxes[boxes[:].cls == args.target_index].cpu().xyxy.numpy()
         if Start_detection :
             #print(boxes)
             Mouse_redirection(boxes, args, interval)

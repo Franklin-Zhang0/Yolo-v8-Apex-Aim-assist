@@ -11,13 +11,17 @@ def arg_init(args):
         "--model_dir", type=str, default=dirpath + "/model", help="model dir"
     )
     args.add_argument("--model", type=str,
-                      default="/apex_total_8n_350_1000.pt", help="model path")
+                      default="/apex_yolov6-8n-376.pt", help="model path")
+    args.add_argument("--iou",type=float,
+                      default=0.8,help="predict iou")
+    args.add_argument("--conf",type=float,
+                        default=0.5,help="predict conf")
     args.add_argument("--crop_size", type=float,
-                      default=1/3, help="the portion to detect from the screen(=crop_window_height/screen_height)(It's always a rectangle)(from 0 to 1)")
+                      default=1/2, help="the portion to detect from the screen(=crop_window_height/screen_height)(It's always a rectangle)(from 0 to 1)")
     args.add_argument("--wait", type=float, default=0, help="wait time")
-    args.add_argument("--verbos", type=bool, default=False, help="verbos")
+    args.add_argument("--verbos", type=bool, default=False, help="predict verbos")
     args.add_argument("--target_index", type=int,
-                      default=0, help="target index")
+                      default=1, help="target index")
     args.add_argument("--half", type=bool, default=True,
                       help="use half to predict")
     # args.add_argument("--mouse_speed", type=float,

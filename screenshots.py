@@ -2,7 +2,7 @@ import dxcam
 import win32api
 import time
 
-camera = dxcam.create()
+camera=None
 region = None
 def shot_init(args):
     global region, camera
@@ -11,11 +11,12 @@ def shot_init(args):
     region = (center[0]-screen_size[1]*args.crop_size/2, center[1]-screen_size[1]*args.crop_size/2,
                 center[0]+screen_size[1]*args.crop_size/2, center[1]+screen_size[1]*args.crop_size/2)
     region = tuple(map(int, region))
-    #camera.start(target_fps=args.game_fps, region=region)
+    camera = dxcam.create(region=region)
+    #camera.start(target_fps=args.game_fps)
 def take_shots(args):
     global region, camera
-    # camera.get_latest_frame()
-    # camera.get_latest_frame()
-    # img= camera.get_latest_frame()
-    img=camera.grab(region=region)
+    img=None
+    #img= camera.get_latest_frame()
+    while(img is None):
+        img=camera.grab(region=region)
     return img
