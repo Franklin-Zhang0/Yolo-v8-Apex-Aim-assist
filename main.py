@@ -3,7 +3,6 @@ from screenshots import *
 import time
 from pynput import mouse, keyboard
 from MyListener import listen_key, listen_mouse, get_S_L, Mouse_redirection, Move_Mouse
-from predict import *
 from args_ import *
 from threading import Thread
 from multiprocessing import Process, Pipe, Value
@@ -39,7 +38,12 @@ if __name__ == "__main__":
     #Mouse_mover = Thread(target=Move_Mouse, args=(args,), name="Mouse_mover")
     #Mouse_mover.start()
     shot_init(args)
-    predict_init(args)
+    if args.model[-3:]==".pt":
+        from predict import *
+        predict_init(args)
+    else:
+        from trt import predict_trt, predict_init
+        predict_init(args)
     print("Main start")
     time_start = time.time()
     while Listen:
@@ -50,11 +54,14 @@ if __name__ == "__main__":
         img=take_shots(args)
         #print("shots time: ", time.time() - time_shot)
         # predict the image
-        predict_res = predict(args,img)
         #print("shot+predict time: ", time.time() - time_start)
         time.sleep(args.wait)
-        boxes = predict_res.boxes
-        boxes = boxes[boxes[:].cls == args.target_index].cpu().xyxy.numpy()
+        if args.model[-3:]==".pt":
+            predict_res = predict(args,img)
+            boxes = predict_res.boxes
+            boxes = boxes[boxes[:].cls == args.target_index].cpu().xyxy.numpy()
+        else:
+            boxes = predict_trt(args,img)
         if Start_detection :
             #print(boxes)
             Mouse_redirection(boxes, args, interval)

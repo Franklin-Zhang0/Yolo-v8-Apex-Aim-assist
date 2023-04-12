@@ -19,4 +19,7 @@ def take_shots(args):
     #img= camera.get_latest_frame()
     while(img is None):
         img=camera.grab(region=region)
+    img=None
+    while(img is None):
+        img=camera.grab(region=region)
     return img
