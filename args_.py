@@ -11,7 +11,7 @@ def arg_init(args):
         "--model_dir", type=str, default=dirpath + "/model", help="model dir"
     )
     args.add_argument("--model", type=str,
-                      default="/apex_8n.trt", help="model path")
+                      default="/apex_8n.pt", help="model path")
     args.add_argument("--iou",type=float,
                       default=0.8,help="predict iou")
     args.add_argument("--conf",type=float,
@@ -28,7 +28,6 @@ def arg_init(args):
     #                     default=5., help="mouse speed(mouse sensitivity in the game)")
     args.add_argument("--smooth",type=int,
                       default=5,help="how smooth the mouse move(from 1. to 5.)")
-    args.add_argument("--game_fps", type=int, default=60, help="the fps in the game")
 
     # PID args
     args.add_argument("--pid", type=bool, default=True, help="use pid")
