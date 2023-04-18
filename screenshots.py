@@ -1,4 +1,4 @@
-import dxcam
+import utils.dxshot as dxcam
 import win32api
 import time
 
