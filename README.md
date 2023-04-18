@@ -15,9 +15,11 @@ pip install nvidia-pyindex
 pip install --upgrade nvidia-tensorrt
 pip install pycuda
 ```
+I have provided '.trt' models, but there's a high probability that you have to transform the '.pt' model to '.trt' model by yourself, because the Tensorrt engines are environment specific. This repo may helpful: [TensorRT-For-YOLO-Series](https://github.com/Linaom1214/TensorRT-For-YOLO-Series)
+
 
 ## How to run the program
-just run the main.py file with the following command
+just run the `main.py` file with the following command
 
 `python main.py`
 
@@ -29,11 +31,8 @@ Once you hold the right mouse button or the left mouse button (no matter you hol
 You can change the settings in the `args.py` file.
 
 ### Some important settings!!!:
-- game_fps 
-    - You should set it to match your game fps (no more than you screen refresh rate). If it's higher than your actual fps, your front sight
-would jump from side to side.
 - model
-    - The default model is for Apex. However, you can train your own model using train.py, and switch the model using this setting.
+    - The default model is for Apex. However, you can train your own model using `train.py`, and switch the model using this setting.
     - There're several model in the "model" dir, you can choose one of them.
         - The `.trt` models are for tensorRT, which is about 4 times faster than the `.pt` models, but with the same accuracy. 
         - Model speed: `8n>8s>8m`
@@ -42,3 +41,8 @@ would jump from side to side.
     - This setting determines the portion of the screen to be detected. Too high may cause difficulty in detecting little objects.
 ## Note
 This program is only for educational purposes. I am not responsible for any damage caused by this program.
+
+## Reference
+[Train image dataset](https://universe.roboflow.com/apex-esoic/apexyolov6)
+
+[TensorRt code](https://github.com/Linaom1214/TensorRT-For-YOLO-Series)
