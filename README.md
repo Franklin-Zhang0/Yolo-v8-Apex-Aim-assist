@@ -1,4 +1,6 @@
 # Yolo v8 Aim Assist
+## If you like it, a star is appreciated!!!
+
 ## How to set up the environment
 
 `pip install -r requirements.txt`
