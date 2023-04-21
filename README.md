@@ -9,7 +9,7 @@ if you have a cuda capable gpu, you can running the following extra command
 
 `pip install torch==1.13.1+cu116 torchvision==0.14.1+cu116 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cu116`
 
-### Using TensorRT to accelerate
+### Using TensorRT to accelerate (Optional)
 Add the following command
 ```
 pip install --upgrade setuptools pip --user
@@ -17,6 +17,9 @@ pip install nvidia-pyindex
 pip install --upgrade nvidia-tensorrt
 pip install pycuda
 ```
+If you can't install tensorrt in this way, you can look up this [Nvidia guide](https://docs.nvidia.com/deeplearning/tensorrt/archives/tensorrt-601/tensorrt-install-guide/index.html#installing-zip)
+
+
 I have provided '.trt' models, but there's a high probability that you have to transform the '.pt' model to '.trt' model by yourself, because the Tensorrt engines are environment specific. This repo may helpful: [TensorRT-For-YOLO-Series](https://github.com/Linaom1214/TensorRT-For-YOLO-Series)
 
 
