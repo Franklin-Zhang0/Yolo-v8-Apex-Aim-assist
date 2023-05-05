@@ -23,7 +23,7 @@ pip install pycuda
 If you can't install tensorrt in this way, you can look up this [Nvidia guide](https://docs.nvidia.com/deeplearning/tensorrt/archives/tensorrt-601/tensorrt-install-guide/index.html#installing-zip)
 
 
-I have provided '.trt' models, but there's a high probability that you have to transform the '.pt' model to '.trt' model by yourself, because the Tensorrt engines are environment specific. This repo may helpful: [TensorRT-For-YOLO-Series](https://github.com/Linaom1214/TensorRT-For-YOLO-Series)
+You have to transform the '.pt' model to '.trt' model by yourself, because the Tensorrt engines are environment specific. This repo may helpful: [TensorRT-For-YOLO-Series](https://github.com/Linaom1214/TensorRT-For-YOLO-Series)
 
 
 ## How to run the program
