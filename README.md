@@ -2,8 +2,6 @@
 
 ## For a more Specific guide, please refer to this [repo](https://github.com/Chalkeys/Yolov8-Apex-Aim-assist-with-IFF). Thank Chalkeys for the detailed guide!
 
-## If you like it, a star is appreciated!!!
-
 ## How to set up the environment
 
 `pip install -r requirements.txt`
