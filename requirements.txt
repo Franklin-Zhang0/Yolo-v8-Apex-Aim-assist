@@ -5,6 +5,6 @@
 ultralytics
 numpy
 pyautogui
-cv2
+opencv-python
 pynput
 pywin32
